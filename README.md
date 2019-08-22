@@ -25,4 +25,4 @@ Or use p5.js's online web editor: https://editor.p5js.org/
 ## Future Work
 
 A method that would allow the AI to solve Sudokus with branching is needed.  
-Also, a responsive layout for the Javascript version would be great.
+Also, a responsive layout for the Javascript version would be great as it would allow the project to be hosted on github pages.
