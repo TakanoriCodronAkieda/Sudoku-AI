@@ -1,14 +1,25 @@
-const removeButton = document.querySelector('#removeButton');
+const notesButton = document.querySelector('#notesButton');
 const clearButton = document.querySelector('#clearButton');
+const findNotesButton = document.querySelector('#findNotesButton');
 const solveButton = document.querySelector('#solveButton');
 const digitButtons = document.querySelectorAll('.digit');
 
 const dimension = 600;
 const cell_size = dimension / 9;
 let board;
+let takingNotes = false;
 
-removeButton.addEventListener('click', () => {
-    board.insert(board.current_selected[0], board.current_selected[1], 0);
+notesButton.addEventListener('click', () => {
+  if (takingNotes) {
+    notesButton.innerHTML = 'Take notes';
+  } else {
+    notesButton.innerHTML = 'Stop taking notes';
+  }
+  takingNotes = !takingNotes;
+});
+
+findNotesButton.addEventListener('click', () => {
+    board.find_notes();
 });
 
 clearButton.addEventListener('click', () => {
@@ -19,19 +30,25 @@ solveButton.addEventListener('click', () => {
     board.easy_solve();
 });
 
-const state = [[0, 0, 3, 0, 0, 8, 0, 0, 4],
-               [1, 2, 6, 0, 0, 4, 0, 7, 0],
-               [8, 0, 7, 0, 1, 0, 2, 3, 0],
-               [5, 6, 0, 2, 8, 0, 0, 0, 0],
-               [0, 0, 0, 3, 0, 7, 0, 0, 0],
-               [0, 0, 0, 0, 5, 6, 0, 2, 8],
-               [0, 9, 5, 0, 6, 0, 4, 0, 7],
-               [0, 1, 0, 8, 0, 0, 3, 9, 2],
-               [7, 0, 0, 9, 0, 0, 1, 0, 0]];
+const state = [[0, 0, 0, 9, 5, 0, 0, 0, 0],
+               [0, 0, 0, 0, 0, 3, 0, 6, 8],
+               [0, 7, 0, 0, 0, 0, 0, 3, 2],
+               [4, 0, 0, 2, 0, 0, 1, 0, 0],
+               [0, 0, 5, 0, 4, 0, 6, 0, 0],
+               [0, 0, 6, 0, 0, 8, 0, 0, 4],
+               [8, 2, 0, 0, 0, 0, 0, 5, 0],
+               [9, 3, 0, 6, 0, 0, 0, 0, 0],
+               [0, 0, 0, 0, 2, 4, 0, 0, 0]];
 
 for (let button of digitButtons) {
     button.addEventListener('click', function() {
+      if (!takingNotes) {
+        console.log('writing a digit')
         board.insert(board.current_selected[0], board.current_selected[1], parseInt(this.id[this.id.length - 1]));
+      } else {
+        console.log('writing a note')
+        board.add_note(board.current_selected[0], board.current_selected[1], parseInt(this.id[this.id.length - 1]));
+      }
     });
 }
 
