@@ -1,5 +1,7 @@
 from copy import deepcopy
 
+
+## Creating an arbitrary initial board
 def initial_board():
     board = Board()
     board.insert(2, 0, 3)
@@ -117,15 +119,7 @@ class Board:
                     break
             else:
                 return False
-        return True    
-
-    def solve(self):
-        while not self.is_win():
-            if not self.easy_solve():
-                self.imaginary_board = Board(self.state)
-                next_x, next_y = self.imaginary_board.get_empty_cells()[0][0], self.imaginary_board.get_empty_cells()[0][1]
-                self.imaginary_board.insert(next_x, next_y, self.imaginary_board.possible_digits(next_x, next_y)[0])
-                self.imaginary_board.solve()   ### CURRENT
+        return True   
 
 
 board = initial_board()
