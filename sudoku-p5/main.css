@@ -1,0 +1,45 @@
+canvas {
+    display: block;
+    margin: auto;
+    border: 1px solid black;
+}
+
+button {
+    background-color: rgb(220, 220, 220);
+    position: relative;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    width: 200px;
+    height: 30px;
+    left: 20px;
+}
+
+button:hover {
+    background-color: rgb(122, 122, 122);
+}
+
+#removeButton {
+    top: 100px;
+}
+
+#clearButton {
+    top: 170px;
+    left: -185px;
+}
+
+#solveButton {
+    top: 240px; 
+    left: -390px;
+}
+
+.digit {
+    width: 60px;
+    height: 60px;
+    top: 670px;
+    left: -117px;
+    margin-right: 3px;
+}
+
+
