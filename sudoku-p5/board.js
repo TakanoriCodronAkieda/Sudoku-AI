@@ -118,12 +118,19 @@ function Board(state) {
 
     this.easy_solve = function() {
         while (!this.is_win()) {
+            let evolved = false;
             for (let location of this.get_empty_cells()) {
                 const possibles = this.possible_digits(location[0], location[1]);
                 if (possibles.length == 1) {
                     this.insert(location[0], location[1], possibles[0]);
+                    evolved = true;
+                    break;
                 }
             }
+            if (!evolved) {
+                return false;
+            }
         }
+        return true;
     }
 }
