@@ -1,3 +1,23 @@
+function hasSubArray(master, sub) {
+    for (elem of master) {
+        var contains = true;
+        if (sub.length != elem.length) {
+            contains = false;
+            continue;
+        }
+        for (let i = 0; i < sub.length; i++) {
+            if (sub[i] != elem[i]) {
+                contains = false;
+                break;
+            }
+        }
+        if (contains) {
+            return true;
+        }
+    }
+    return false;
+}
+
 function Board(state) {
     if (!state) {
         state = Array.from(Array(9), () => new Array(9).fill(null));
@@ -31,6 +51,27 @@ function Board(state) {
         line(dimension - 1, 0, dimension - 1, dimension);
         line(0, dimension - 1, dimension, dimension - 1);
         pop();
+    }
+
+    this.next = function(x, y) {
+        if (x == 8 && y == 8) {
+            return false;
+        } else if (x == 8) {
+            return [0, y + 1];
+        }
+        return [x + 1, y];
+    }
+
+    this.next_empty = function(x, y) {
+        let n = this.next(x, y);
+        const empties = this.get_empty_cells();
+        while (!hasSubArray(empties, n)) {
+            if (!n) {
+                return false;
+            }
+            n = this.next(n[0], n[1]);
+        }
+        return n;
     }
 
     this.is_valid = function() {
@@ -139,22 +180,27 @@ function Board(state) {
         }
     }
 
-    this.easy_solve = function() {
-        while (!this.is_win()) {
-            let evolved = false;
-            for (let location of this.get_empty_cells()) {
-                const possibles = this.possible_digits(location[0], location[1]);
-                if (possibles.length == 1) {
-                    this.insert(location[0], location[1], possibles[0]);
-                    evolved = true;
-                    break;
+    this.solve = function(x=false, y=false) {
+        if (!x && !y) {
+            x = this.get_empty_cells()[0][0];
+            y = this.get_empty_cells()[0][1];
+        }
+        const possibles = this.possible_digits(x, y);
+        for (d of possibles) {
+            this.insert(x, y, d);
+            if (this.next_empty(x, y)) {
+                const next_x = this.next_empty(x, y)[0];
+                const next_y = this.next_empty(x, y)[1];
+                const result = this.solve(next_x, next_y);
+                if (!result) {
+                    this.insert(x, y, 0);
+                    continue;
+                } else {
+                    this.state = result.state;
                 }
             }
-            if (!evolved) {
-                return false;
-            }
+            return this;
         }
-        return true;
     }
 }
 
