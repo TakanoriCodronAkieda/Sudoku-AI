@@ -1,6 +1,5 @@
 # Sudoku AI
 
-An algorithm that solves easy Sudoku where no branching is required.  
 The repository includes an easy to use p5 version of the algorithm.
 
 ## Getting Started
