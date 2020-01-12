@@ -21,7 +21,3 @@ However, if you are cloning the repository, p5.js will come automatically.
 You can also download p5.js from here: https://p5js.org/download/
 
 Or use p5.js's online web editor: https://editor.p5js.org/
-
-## Future Work
-
-A method that would allow the AI to solve Sudokus with backtracking is needed.  
