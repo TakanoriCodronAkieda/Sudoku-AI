@@ -15,7 +15,7 @@ into the command line / terminal of your machine.
 The python (3.0 or above) version does not require any third party package.
 
 To run the javascript version with the nicer user interface, you will need p5.js.  
-However, if you are cloning the repository, p5.js will come automatically.  
+If you are cloning the repository, p5.js will come automatically.  
 
 You can also download p5.js from here: https://p5js.org/download/
 
